@@ -91,6 +91,8 @@ Folgende Parameter können als Flaggen übergeben werden.
 
 Long Flag (--) | Short Flag (-) | Arguments | Description
 -------------- | -------------- | --------- | -----------
+help           | h              |           | Hilfe ausgeben
+version        | _none_         |           | Version ausgeben
 config         | _none_         | Dateipfad | Die zu verwendende Konfigurationsdatei.
 output         | o              | Verzeichnis | Die Ausgabedatei, überschreibt `$EXTRACT_OUTPUT` der Konfigurationsdatei.
 verbose        | v              | Optionales Loglevel | Das Loglevel, standardmässig D, überschreibt `$LOG_LEVEL`.
