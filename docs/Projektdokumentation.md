@@ -52,6 +52,8 @@ Kommandozeilen-Optionen nehmen immer Priorität.
 $ git_clone_update_repos.bash <BASE_DIRECTORY> <ARGUMENTE>
 ```
 
+TODO(COD): Dokumentiere Skriptaufruf
+
 #### Git Extract Commits
 
 ```bash
@@ -73,10 +75,14 @@ Das `OUTPUT_FILE` wird als Space-Separated CSV nach folgendem Format
 geschrieben:
 
 ```
-Zielverzeichnis,Datum,Commit-Hash,Author
+<Zielverzeichnis>,<YYYYmmdd>,<Author>,<Commit-Hash>
 ```
 
-Die Datei beginnt immer mit diesem Header als erster Zeile.
+Die Datei beginnt immer mit diesem Header als erster Zeile:
+
+```
+Zielverzeichnis,Datum,Commit-Hash,Author
+```
 
 Sollte das `OUTPUT_FILE` bereits existieren, wird es überschrieben, ausser die
 Konfigurationsoption `OVERWRITE` ist gesetzt als `"No"` oder `"Ask"`.
@@ -106,6 +112,8 @@ Exit Code | Description
 Prozess für **Git Clone/Update Repos**:
 
 ![Activity Diagram: Skript 1: Git Clone/Update Repos](git_clone_update_repos.drawio.svg)
+
+TODO(COD): Activity-Diagramm erstellen und als `git_clone_update_repos.drawio.svg` (drawio editable svg) speichern.
 
 Prozess für **Git Extract Commits**:
 
