@@ -2,7 +2,7 @@
 title: Projektdokumenation
 author: Conese Dillan, van Loo Colin
 date: 2022-06-24
-lastmod: 2022-06-24
+lastmod: 2022-06-30
 ---
 
 # Projekt Dokumentation
@@ -23,10 +23,11 @@ $ non-root-befehl <argumente>
 ```
 
 Befehlen, die `root`-Berechtigungen benötigen, wird ein `#` anstatt ein
-`$`-Symbol vorangesetzt. Das `#` oder `$`-Zeichen dienen lediglich fürs
+`$`-Symbol vorangesetzt. Das `#`- oder `$`-Zeichen dienen lediglich fürs
 visuelle Verständnis, und gehört nicht zum eigentlichen Befehl hinzu.
 
-Weiter weisen eckige Klammern `[...]` auf optionale Argumente hin:
+Weiter weisen eckige Klammern `[...]` auf optionale Argumente hin, `<...>`
+gelten als Platzhalter:
 
 ```bash
 $ kommando [<input-file>]
@@ -52,7 +53,7 @@ Kommandozeilen-Optionen nehmen immer Priorität.
 $ git_clone_update_repos.bash <BASE_DIRECTORY> <ARGUMENTE>
 ```
 
-TODO(COD): Dokumentiere Skriptaufruf
+[[TODO(GeneTv): Dokumentiere Skriptaufruf]]
 
 #### Git Extract Commits
 
@@ -71,6 +72,8 @@ $BASE_DIRECTORY/
 └── Project2/
 ```
 
+... wobei jeder der Subordner ein Git-Repository darstellt.
+
 Das `OUTPUT_FILE` wird als Space-Separated CSV nach folgendem Format
 geschrieben:
 
@@ -85,19 +88,18 @@ Zielverzeichnis,Datum,Commit-Hash,Author
 ```
 
 Sollte das `OUTPUT_FILE` bereits existieren, wird es überschrieben, ausser die
-Konfigurationsoption `OVERWRITE` ist gesetzt als `"No"` oder `"Ask"`.
-
-Folgende Parameter können als Flaggen übergeben werden.
+Konfigurationsoption `OVERWRITE` ist gesetzt als `"No"` oder `"Ask"`.  Folgende
+Parameter können als Flaggen übergeben werden.
 
 Long Flag (--) | Short Flag (-) | Arguments | Description
 -------------- | -------------- | --------- | -----------
 help           | h              |           | Hilfe ausgeben
-version        | _none_         |           | Version ausgeben
-config         | _none_         | Dateipfad | Die zu verwendende Konfigurationsdatei.
+version        |                |           | Version ausgeben
+config         |                | Dateipfad | Die zu verwendende Konfigurationsdatei.
 output         | o              | Verzeichnis | Die Ausgabedatei, überschreibt `$EXTRACT_OUTPUT` der Konfigurationsdatei.
 verbose        | v              | Optionales Loglevel | Das Loglevel, standardmässig D, überschreibt `$LOG_LEVEL`.
 
-#### Exit Codes
+### Exit Codes
 
 Bei erfolgreicher Ausführung beträgt der Exit Code `$?` 0.
 
@@ -111,13 +113,13 @@ Exit Code | Description
 
 ### Ablauf der Automation
 
-Prozess für **Git Clone/Update Repos**:
+#### Prozess für Git Clone/Update Repos:
 
 ![Activity Diagram: Skript 1: Git Clone/Update Repos](git_clone_update_repos.drawio.svg)
 
-TODO(COD): Activity-Diagramm erstellen und als `git_clone_update_repos.drawio.svg` (drawio editable svg) speichern.
+[[TODO(GeneTv): Activity-Diagramm erstellen und als `git_clone_update_repos.drawio.svg` (drawio editable svg) speichern.]]
 
-Prozess für **Git Extract Commits**:
+#### Prozess für Git Extract Commits:
 
 ![Activity Diagram: Skript 2: Git Extract Commits](git_extract_commits.drawio.svg)
 
@@ -144,6 +146,6 @@ LOG_LEVEL=D git_extract_commits.bash .local/src/
 
 ## Abgrenzungen zum Lösungsdesign
 
-TODO: Nachdem das Programm verwirklicht wurde hier die unterschiede von der
+[[TODO: Nachdem das Programm verwirklicht wurde hier die unterschiede von der
 Implementation zum Lösungsdesign beschreiben (was wurde anders gemacht, was
-wurde nicht gemacht, was wurde zusaetzlich gemacht)
+wurde nicht gemacht, was wurde zusaetzlich gemacht)]]
