@@ -40,7 +40,7 @@ Es wird in folgender Reihenfolge (Priorität) nach Konfigurationen gesucht:
 * Environment Variables
 * --config <FILE_PATH>
 * $PWD/m122.env
-* $XDG_CONFIG_HOME/m122.env
+* $XDG_CONFIG_HOME/m122/m122.env
 * $HOME/.config/m122/m122.env
 * Standardwerte
 
@@ -124,7 +124,7 @@ Prozess für **Git Extract Commits**:
 ### Konfigurationsdateien
 
 Das Konfigurationsfile muss den Namen `m122.env` tragen und sollte sich
-entweder unter `$XDG_CONFIG_HOME`, `$PWD`, oder `$HOME/.config/m122/` befinden.
+entweder unter `$XDG_CONFIG_HOME/m122/`, `$PWD`, oder `$HOME/.config/m122/` befinden.
 
 Die Konfiguration wird mit Bash-Syntax geschrieben. Das laufende Program
 `source`d das Konfigurationsfile wenn vorhanden. Dabei werden alle Befehle in
