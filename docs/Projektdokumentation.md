@@ -37,23 +37,41 @@ $ kommando [<input-file>]
 
 Es wird in folgender Reihenfolge (Priorität) nach Konfigurationen gesucht:
 
-* Kommandozeilenargumente
-* Environment Variables
-* --config <FILE_PATH>
-* $PWD/m122.env
-* $XDG_CONFIG_HOME/m122/m122.env
-* $HOME/.config/m122/m122.env
-* Standardwerte
+- Kommandozeilenargumente
+- Environment Variables
+- --config <FILE_PATH>
+- $PWD/m122.env
+- $XDG_CONFIG_HOME/m122/m122.env
+- $HOME/.config/m122/m122.env
+- Standardwerte
 
 Kommandozeilen-Optionen nehmen immer Priorität.
 
 #### Git Clone/Update Repos
 
 ```bash
-$ git_clone_update_repos.bash <BASE_DIRECTORY> <ARGUMENTE>
+$ git_clone_update_repos.bash <ARGUMENTE> <INPUT_FILE>
 ```
 
-[[TODO(GeneTv): Dokumentiere Skriptaufruf]]
+Repositories werden von dem `BASE_DIRECTORY` gelesen. Dieses Verzeichnis könnte
+zum Beispiel so aussehen:
+
+```
+$BASE_DIRECTORY/
+├── M122_LB1/
+├── M122_LB2/
+├── Project1/
+└── Project2/
+```
+
+... wobei jeder der Subordner ein Git-Repository darstellt.
+
+> Sollte ein Git-Repository Verzeichnis im BASE_DIRECTORY existieren, jedoch nicht über das INPUT_FILE mitgegeben werden, so wird das Verzeichnis gelöscht.
+
+| Short Flag (-) | Arguments           | Description                                                                |
+| -------------- | ------------------- | -------------------------------------------------------------------------- |
+| b              | Verzeichnis         | Setzt das `BASE_DIRECTORY`, in welchem sich die Git-Repositories befinden. |
+| v              | Optionales Loglevel | Das Loglevel, standardmässig D, überschreibt `$LOG_LEVEL`.                 |
 
 #### Git Extract Commits
 
@@ -88,36 +106,34 @@ Zielverzeichnis,Datum,Commit-Hash,Author
 ```
 
 Sollte das `OUTPUT_FILE` bereits existieren, wird es überschrieben, ausser die
-Konfigurationsoption `OVERWRITE` ist gesetzt als `"No"` oder `"Ask"`.  Folgende
+Konfigurationsoption `OVERWRITE` ist gesetzt als `"No"` oder `"Ask"`. Folgende
 Parameter können als Flaggen übergeben werden.
 
-Long Flag (--) | Short Flag (-) | Arguments | Description
--------------- | -------------- | --------- | -----------
-help           | h              |           | Hilfe ausgeben
-version        |                |           | Version ausgeben
-config         |                | Dateipfad | Die zu verwendende Konfigurationsdatei.
-output         | o              | Verzeichnis | Die Ausgabedatei, überschreibt `$EXTRACT_OUTPUT` der Konfigurationsdatei.
-verbose        | v              | Optionales Loglevel | Das Loglevel, standardmässig D, überschreibt `$LOG_LEVEL`.
+| Long Flag (--) | Short Flag (-) | Arguments           | Description                                                               |
+| -------------- | -------------- | ------------------- | ------------------------------------------------------------------------- |
+| help           | h              |                     | Hilfe ausgeben                                                            |
+| version        |                |                     | Version ausgeben                                                          |
+| config         |                | Dateipfad           | Die zu verwendende Konfigurationsdatei.                                   |
+| output         | o              | Verzeichnis         | Die Ausgabedatei, überschreibt `$EXTRACT_OUTPUT` der Konfigurationsdatei. |
+| verbose        | v              | Optionales Loglevel | Das Loglevel, standardmässig D, überschreibt `$LOG_LEVEL`.                |
 
 ### Exit Codes
 
 Bei erfolgreicher Ausführung beträgt der Exit Code `$?` 0.
 
-Exit Code | Description
---------- | -----------
-0         | Erfolgreich
-1         | Invalide Argumente
-2         | Fehlende Berechtigungen
-3         | Fehlende Konfigurationsdatei
-255       | Andere Fehler
+| Exit Code | Description                  |
+| --------- | ---------------------------- |
+| 0         | Erfolgreich                  |
+| 1         | Invalide Argumente           |
+| 2         | Fehlende Berechtigungen      |
+| 3         | Fehlende Konfigurationsdatei |
+| 255       | Andere Fehler                |
 
 ### Ablauf der Automation
 
 #### Prozess für Git Clone/Update Repos:
 
 ![Activity Diagram: Skript 1: Git Clone/Update Repos](git_clone_update_repos.drawio.svg)
-
-[[TODO(GeneTv): Activity-Diagramm erstellen und als `git_clone_update_repos.drawio.svg` (drawio editable svg) speichern.]]
 
 #### Prozess für Git Extract Commits:
 
@@ -132,11 +148,11 @@ Die Konfiguration wird mit Bash-Syntax geschrieben. Das laufende Program
 `source`d das Konfigurationsfile wenn vorhanden. Dabei werden alle Befehle in
 der Konfig auch ausgeführt.
 
-Env Var | Default Value | Possible Values | Description
-------- | ------------- | --------------- | -----------
-EXTRACT_OUTPUT | $PWD   | Any file path   | Pfad für das Output-File von `git_extract_commits.bash`.
-LOG_LEVEL | W           | D, I, W, E      | Ausführlichkeit des Logging.
-OVERWRITE | "Yes"       | "Yes", "No", "Ask" | Ob Ausgabedateien überschrieben werden sollten, oder nicht.
+| Env Var        | Default Value | Possible Values    | Description                                                 |
+| -------------- | ------------- | ------------------ | ----------------------------------------------------------- |
+| EXTRACT_OUTPUT | $PWD          | Any file path      | Pfad für das Output-File von `git_extract_commits.bash`.    |
+| LOG_LEVEL      | W             | D, I, W, E         | Ausführlichkeit des Logging.                                |
+| OVERWRITE      | "Yes"         | "Yes", "No", "Ask" | Ob Ausgabedateien überschrieben werden sollten, oder nicht. |
 
 Alternativ kann die Environment auch manuell beim Skript-Aufruf gesetzt werden:
 
