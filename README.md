@@ -1,6 +1,6 @@
 # Projektarbeit LB2
 
-[[_TOC_]]
+01.07.2022
 
 # Einleitung
 
