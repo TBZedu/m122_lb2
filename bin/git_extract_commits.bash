@@ -24,12 +24,12 @@ version() {
 . $BINDIR/git-tools.utils
 
 # Source configuration
-load_config()
+load_config
 
 # Parse input directory
 basedir=
-if [ -d $1 ]; then
-    basedir=$1
+if [ -d "$1" ]; then
+    basedir=$(realpath "$1")
     shift
 else
     echo "Invalid BASE_DIRECTORY specified, first argument must be a valid directory path." >&2
@@ -45,13 +45,17 @@ is_git_dir() {
         echo .git;
     elif dir=$(git rev-parse --git-dir 2>/dev/null); then
         echo $dir;
+    else
+        echo "";
     fi
 }
 
-for f in $basedir; do
-    cd $f
-    if [ -n is_git_dir ]; then
-        log W "Skipping: $f; Not a Git Repository"
+# NOTE(cvl): Iterate through all (`*`) directories (`/`).
+for d in "$basedir/"*/; do
+    cd $d
+    if [ -z is_git_dir ]; then
+        log W "Skipping: $d; Not a Git Repository"
+        continue
     fi
     # Format log like "Repo-Name,YYYYMMDD,Commit-Hash,Author-Name"
     # m122_lb2,20220701,becb412ae979cb3e958f5bd1749d6fb3dd10c2fc,Colin van Loo
