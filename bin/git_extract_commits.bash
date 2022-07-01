@@ -61,6 +61,7 @@ for d in "$basedir/"*/; do
     # m122_lb2,20220701,becb412ae979cb3e958f5bd1749d6fb3dd10c2fc,Colin van Loo
     gitlog=$(git log --date="format:%Y%m%d" --pretty="format:$(basename $(git rev-parse --show-toplevel)),%ad,%H,%an")
     cd $CWD
-    echo $gitlog >> $outfile
+    # NOTE(cvl): Must be quoted to preserve line breaks.
+    echo "$gitlog" >> $outfile
 done
 
