@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION=0.0.1
+VERSION=0.0.2
 LOGLEVEL=${LOGLEVEL:-W}
 PARAMLINE="$BASENAME $@"             # invocation
 CWD=$(pwd)                           # current working directory
@@ -19,7 +19,28 @@ if [ ! -f $LOGFILE ]; then
 fi
 
 usage() {
-    echo $'Until I write this, you\'re on your own' >&2
+    echo 'SYNOPSIS:'                                                              >&2
+    echo "    $BASENAME <BASE_DIRECTORY> [-o <OUTPUT_FILE>] [<ARGUMENTS>]"        >&2
+    echo ''                                                                       >&2
+    echo 'BASE_DIRECTORY:'                                                        >&2
+    echo '    A directory containing git repositories.'                           >&2
+    echo ''                                                                       >&2
+    echo 'OUTPUT_FILE:'                                                           >&2
+    echo '    Location for the output file.'                                      >&2
+    echo ''                                                                       >&2
+    echo 'ARGUMENTS:'                                                             >&2
+    echo '    -h|--help                    print this help and exit'              >&2
+    echo '    --version                    print version and exit'                >&2
+    echo '    --config=FILE                supply a custom config file location'  >&2
+    echo '    -o=FILE|--output=FILE output file location'                         >&2
+    echo '    -v[=LEVEL]|--verbose[=LEVEL] log verbosity (D|I|W|E), default is D' >&2
+    echo ''                                                                       >&2
+    echo 'EXIT CODES:'                                                            >&2
+    echo '    0   Success'                                                        >&2
+    echo '    1   Invalid agruments'                                              >&2
+    echo '    2   Missing permissions'                                            >&2
+    echo '    3   Missing configuration file'                                     >&2
+    echo '    255 Other error'                                                    >&2
 }
 
 version() {
@@ -76,14 +97,11 @@ for i in "$@"; do
     esac
 done
 
-set_log_level() {
-    if [ -n "$log_level" ]; then
-        LOGLEVEL=$log_level
-    fi
-}
+if [ -n "$log_level" ]; then
+    LOGLEVEL=$log_level
+fi
 
 # Source configuration
-set_log_level
 if [ -r "$config_file" ]; then
     . $config_file
     log D "config loaded from" $(realpath $config_file)
@@ -91,7 +109,12 @@ else
     log D "loading config from default strategy..."
     load_config
 fi
-set_log_level
+
+# NOTE(cvl): Log level might be overwritten by config, but parameter should
+# have precedence.
+if [[ -z "$log_level" && -n "$LOG_LEVEL" ]]; then
+    LOGLEVEL=$LOG_LEVEL
+fi
 
 log D "invoked:" $PARAMLINE
 log D "version:" $(version)
