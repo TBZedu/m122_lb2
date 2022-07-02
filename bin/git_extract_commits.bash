@@ -57,7 +57,7 @@ if [ -d "$1" ]; then
     shift
 fi
 
-# TODO: Parse command line parameters
+# Parse command-line parameters
 config_file=
 out_file=
 log_level=
