@@ -33,11 +33,19 @@ log() {
 }
 
 load_config() {
-    if [ -r "$CWD/git-tools.env" ]; then
+    if [ -r "$ETCDIR/git-tools.env" ]; then
+        log D "loading config from ETCDIR" $(realpath $ETCDIR)
+        . "$ETCDIR/git-tools.env"
+    elif [ -r "$CWD/git-tools.env" ]; then
+        log D "loading config from CWD" $CWD
         . "$CWD/git-tools.env"
     elif [ -r "$XDG_CONFIG_HOME/git-tools.env" ]; then
+        log D "loading config from XDG_CONFIG_HOME" $XDG_CONFIG_HOME
         . "$XDG_CONFIG_HOME/git-tools.env"
     elif [ -r "$HOME/.config/git-tools/git-tools.env" ]; then
+        log D "loading config from HOME/.config/git-tools"
         . "$HOME/.config/git-tools/git-tools.env"
+    else
+        log D "no config found, using env vars or default values"
     fi
 }
