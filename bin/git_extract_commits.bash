@@ -138,13 +138,18 @@ fi
 # NOTE(cvl): "[...] all but the last component must exist."
 outfile=$(realpath $outfile)
 
+create_outfile() {
+    truncate -s0 $outfile
+    echo "Zielverzeichnis,Datum,Commit-Hash,Author" > $outfile
+}
+
 if [ -w $outfile ]; then
     case $OVERWRITE in
-        "Yes") truncate -s0 $outfile ;;
+        "Yes") create_outfile ;;
         "Ask")
             read -p "Outfile exists, overwrite? [Y|n] " overwrite_answer
             if [[ "$overwrite_answer" == "y" || -z "$overwrite_answer" ]]; then
-                truncate -s0 $outfile
+                create_outfile
             else
                 log E "not overwriting outfile"
                 exit 255
