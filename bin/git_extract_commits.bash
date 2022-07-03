@@ -15,8 +15,8 @@ LOGFILE=$BINDIR/../var/git-tools.log # logfile
 # Create log file and parent dirs if it doesn't exist.
 if [ ! -f $LOGFILE ]; then
     mkdir -p $(dirname $LOGFILE)
-    LOGFILE=$(realpath $LOGFILE)
 fi
+LOGFILE=$(realpath $LOGFILE)
 
 usage() {
     echo 'SYNOPSIS:'                                                              >&2
