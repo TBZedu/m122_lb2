@@ -186,7 +186,7 @@ is_git_dir() {
     if [ -d .git ]; then
         echo .git;
     elif dir=$(git rev-parse --git-dir 2>/dev/null); then
-        echo $dir;
+        echo "$dir";
     else
         echo "";
     fi
@@ -195,7 +195,9 @@ is_git_dir() {
 # NOTE(cvl): Iterate through all (`*`) directories (`/`).
 for d in "$basedir/"*/; do
     cd $d
-    if [ -z is_git_dir ]; then
+    found=$(is_git_dir)
+    #log D "FOUND: $found"
+    if [ -z "$found" ]; then
         log I "skipping: $d; not a git repository"
         continue
     else
