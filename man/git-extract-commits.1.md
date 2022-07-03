@@ -55,6 +55,9 @@ Always with this first line as the header.
 **-o *FILE***, **--output *FILE***
 : Write output to *FILE*.
 
+**--overwrite *(Yes,Ask,No)***
+: Behavior in case output file already exists.
+
 # EXAMPLES
 
 **git_extract_commits.bash -h**

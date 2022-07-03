@@ -34,6 +34,7 @@ usage() {
     echo '    --config=FILE                supply a custom config file location'  >&2
     echo '    -o=FILE|--output=FILE output file location'                         >&2
     echo '    -v[=LEVEL]|--verbose[=LEVEL] log verbosity (D|I|W|E), default is D' >&2
+    echo '    --overwrite=OPT              overwrite output file? (Yes, Ask, No)' >&2
     echo ''                                                                       >&2
     echo 'EXIT CODES:'                                                            >&2
     echo '    0   Success'                                                        >&2
@@ -61,6 +62,7 @@ fi
 config_file=
 out_file=
 log_level=
+over_write=
 for i in "$@"; do
     case $i in
         -h|--help)
@@ -93,6 +95,12 @@ for i in "$@"; do
                 log_level=D
             fi
             shift ;;
+        --overwrite=*)
+            over_write="${i#*=}"
+            shift ;;
+        --overwrite)
+            over_write="$2"
+            shift ;;
         *) shift ;;
     esac
 done
@@ -123,6 +131,15 @@ log D "version:" $(version)
 if [ ! -d "$basedir" ]; then
     echo "Invalid BASE_DIRECTORY specified, first argument must be a valid directory path." >&2
     exit 1
+fi
+
+if [ -n "$over_write" ]; then
+    if [[ $overwrite == "Yes" || $overwrite == "Ask" || $overwrite == "No" ]]; then
+        OVERWRITE=$over_write
+    else
+        log E "Invalid option specified for OVERWRITE"
+        exit 1
+    fi
 fi
 
 # Create or truncate outfile
@@ -160,6 +177,8 @@ if [ -w $outfile ]; then
             exit 255
             ;;
     esac
+else
+    create_outfile
 fi
 
 # `is_git_dir` checks whether a directory is a valid git repository.
