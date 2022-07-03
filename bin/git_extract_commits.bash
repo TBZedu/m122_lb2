@@ -134,7 +134,7 @@ if [ ! -d "$basedir" ]; then
 fi
 
 if [ -n "$over_write" ]; then
-    if [[ $overwrite == "Yes" || $overwrite == "Ask" || $overwrite == "No" ]]; then
+    if [[ $over_write == "Yes" || $over_write == "Ask" || $over_write == "No" ]]; then
         OVERWRITE=$over_write
     else
         log E "Invalid option specified for OVERWRITE"
