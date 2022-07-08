@@ -142,7 +142,6 @@ if [ -n "$over_write" ]; then
     fi
 fi
 
-# Create or truncate outfile
 outfile=
 if [ -n "$out_file" ]; then
     outfile=$out_file
@@ -156,6 +155,7 @@ fi
 outfile=$(realpath $outfile)
 
 create_outfile() {
+    # Create or truncate outfile
     truncate -s0 $outfile
     echo "Zielverzeichnis,Datum,Commit-Hash,Author" > $outfile
 }
@@ -207,7 +207,7 @@ for d in "$basedir/"*/; do
     gitname=$(basename $(git rev-parse --show-toplevel))
     # Format log like "Repo-Name,YYYYMMDD,Commit-Hash,Author-Name"
     # m122_lb2,20220701,becb412ae979cb3e958f5bd1749d6fb3dd10c2fc,Colin van Loo
-    gitlog=$(git log --date="format:%Y%m%d" --pretty="format:$gitname,%ad,%H,%an")
+    gitlog=$(git log --date="format:%Y%m%d" --pretty="format:$gitname,%cd,%H,%an")
     cd $CWD
     # NOTE(cvl): Must be quoted to preserve line breaks.
     echo "$gitlog" >> $outfile
