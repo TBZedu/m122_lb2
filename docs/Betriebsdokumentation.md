@@ -1,3 +1,10 @@
+---
+title: Betriebsdokumenation
+author: Conese Dillan, van Loo Colin
+date: 2022-07-08
+lastmod: 2022-07-08
+---
+
 # Betriebsdokumentation
 
 Erstellt am 08.07.2022.
@@ -20,7 +27,7 @@ Den *aktuellsten* Release herunterlanden:
 curl -L <release> > git-tools.tar.gz
 # or: curl -O <release>
 tar -xvf git-tools.tar.gz
-cd $EXTRACTED_DIR # replace with path f extracted directory
+cd $EXTRACTED_DIR # replace with path of extracted directory
 export PATH="$PATH:$EXTRACTED_DIR/bin"
 ```
 
