@@ -2,14 +2,14 @@
 title: Betriebsdokumenation
 author: Conese Dillan, van Loo Colin
 date: 2022-07-08
-lastmod: 2022-07-08
+lastmod: 2022-07-13
 ---
 
 # Betriebsdokumentation
 
 Erstellt am 08.07.2022.
 
-## Einführungstext 
+## Einführungstext
 
 Das `git_clone_update_repos.bash`-Skript stellt sicher das alle in einer
 Input-Datei spezifizierten Repositories heruntergelanden und aktuell sind.
@@ -21,7 +21,7 @@ Repositories und schreibt diese in eine CSV-Datei.
 
 ### Installation
 
-Den *aktuellsten* Release herunterlanden:
+Den _aktuellsten_ Release herunterlanden:
 
 ```bash
 curl -L <release> > git-tools.tar.gz
@@ -42,13 +42,51 @@ Der Inhalt wird als Bash-Syntax interpretiert.
 
 ### Git Clone/Update Repos
 
-TODO(GeneTv): Erzeugen der Input-Files beschreiben
+#### Erzeugen des Input-Files
 
-TODO(GeneTv): beschreiben des Scriptaufruf
+Das Input File muss folgendem Format entsprechen:
 
-TODO(GeneTv): beschreiben der erzeugt files/directories (falls solche erzeugt werden)
+```
+https://git_url folder_name
+https://github.com/torvalds/linux linux_github
+https://github.com/google-research/google-research google_research_repo
+https://gitlab.com/gitlab-org/gitlab gitlab
+```
 
-TODO(GeneTv): Lokation von logfiles und bekannte Fehlermeldungen beschreiben.
+Der Benutzer muss auf die Repositories Zugriff haben. Es können auch Repositories über SSH geklont werden (username@remote:path_to_repo), solange der User eine korrekte Konfiguration gewährleisten kann.
+
+#### Aufruf des Skriptes
+
+```bash
+git_clone_update_repos.bash <INPUT_FILE> [-b <BASE_DIRECTORY>] [<ARGUMENTE>]
+```
+
+Flaggen werden in der kurzen Form (-b) mitgegeben. Werden Argumente erwartet, können diese mittels einem Space (-b /var/home/ubuntu/sources) übergeben werden.
+
+Eine ausführlichere Beschreibung findet sich in der Manpage `man -l man/git_clone_update_repos.1` ([Repo-Link](../man/git_clone_update_repos.1)).
+
+Das base directory für die repositories kann über `-b` mitgegeben werden. Wird das base directory nicht mitgegeben, wird das aktuelle verzeichnis als base directory genutzt.
+
+Verboses Logging kann mittels `-v` aktiviert werden.
+
+#### Exit Codes
+
+Mögliche Fehler können auftreten:
+
+```bash
+echo $? # Get last exit code
+```
+
+| Code | Description                     |
+| ---- | ------------------------------- |
+| 0    | Ausführung erfolgreich          |
+| 1    | Invalide Argumente              |
+| 2    | Invalide Zugriffsberechtigungen |
+| 255  | Anderer Fehler                  |
+
+#### Logfiles
+
+Logs werden nach `var/git-tools.log` ([Repo-Link](../var/)).
 
 ### Git Extract Commits
 
@@ -76,8 +114,7 @@ Werden Argumente erwartet, können diese mittels einem Gleichzeichen
 (-o=test.csv) oder einem Space (-o test.csv) getrennt übergeben werden.
 
 Eine Übersicht über erlaubte Argumente ist verfügbar mittels der `--help` (oder
-`-h`) Option. Eine ausführlichere Beschreibung findet sich in der Manpage `man
--l man/git-extract-commits.1` ([Repo-Link](../man/git-extract-commits.1)).
+`-h`) Option. Eine ausführlichere Beschreibung findet sich in der Manpage `man -l man/git-extract-commits.1` ([Repo-Link](../man/git-extract-commits.1)).
 
 Verboses Logging kann mittels `-v` aktiviert werden.
 
@@ -103,13 +140,13 @@ Mögliche Fehler können auftreten:
 echo $? # Get last exit code
 ```
 
-Code | Description
---- | ---
-0 | Ausführung erfolgreich
-1 | Invalide Argumente
-2 | Invalide Zugriffsberechtigungen
-3 | Konfigurationsparameter fehlen
-255 | Anderer Fehler
+| Code | Description                     |
+| ---- | ------------------------------- |
+| 0    | Ausführung erfolgreich          |
+| 1    | Invalide Argumente              |
+| 2    | Invalide Zugriffsberechtigungen |
+| 3    | Konfigurationsparameter fehlen  |
+| 255  | Anderer Fehler                  |
 
 #### Logfiles
 
