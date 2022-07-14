@@ -61,7 +61,7 @@ Der Benutzer muss auf die Repositories Zugriff haben. Es können auch Repositori
 git_clone_update_repos.bash <INPUT_FILE> [-b <BASE_DIRECTORY>] [<ARGUMENTE>]
 ```
 
-Flaggen werden in der kurzen Form (-b) mitgegeben. Werden Argumente erwartet, können diese mittels einem Space (-b /var/home/ubuntu/sources) übergeben werden.
+Flaggen werden in der kurzen Form (-b) mitgegeben. Werden Argumente erwartet, können diese mittels einem Space (-b /home/ubuntu/sources) übergeben werden.
 
 Eine ausführlichere Beschreibung findet sich in der Manpage `man -l man/git-clone-update-repos.1` ([Repo-Link](../man/git-clone-update-repos.1)).
 
