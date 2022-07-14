@@ -162,6 +162,4 @@ LOG_LEVEL=D git_extract_commits.bash .local/src/
 
 ## Abgrenzungen zum Lösungsdesign
 
-[[TODO: Nachdem das Programm verwirklicht wurde hier die unterschiede von der
-Implementation zum Lösungsdesign beschreiben (was wurde anders gemacht, was
-wurde nicht gemacht, was wurde zusaetzlich gemacht)]]
+Gemäss Lösungsdesign umgesetzt.
