@@ -37,8 +37,8 @@ while getopts b:v: optvar; do
 	case $optvar in
 		b) base_directory=${OPTARG} ;;
 		v)
-      if [[ $2 == "D" || $2 == "I" || $2 == "W" || $2 == "E" ]]; then
-        LOGLEVEL=$2
+      if [[ $OPTARG == "D" || $OPTARG == "I" || $OPTARG == "W" || $OPTARG == "E" ]]; then
+        LOGLEVEL=$OPTARG
       else
         LOGLEVEL=D
       fi
