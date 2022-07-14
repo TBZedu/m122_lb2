@@ -63,7 +63,7 @@ git_clone_update_repos.bash <INPUT_FILE> [-b <BASE_DIRECTORY>] [<ARGUMENTE>]
 
 Flaggen werden in der kurzen Form (-b) mitgegeben. Werden Argumente erwartet, können diese mittels einem Space (-b /var/home/ubuntu/sources) übergeben werden.
 
-Eine ausführlichere Beschreibung findet sich in der Manpage `man -l man/git_clone_update_repos.1` ([Repo-Link](../man/git_clone_update_repos.1)).
+Eine ausführlichere Beschreibung findet sich in der Manpage `man -l man/git-clone-update-repos.1` ([Repo-Link](../man/git-clone-update-repos.1)).
 
 Das base directory für die repositories kann über `-b` mitgegeben werden. Wird das base directory nicht mitgegeben, wird das aktuelle verzeichnis als base directory genutzt.
 
